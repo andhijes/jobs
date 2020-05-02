@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {
     Link, useHistory 
   } from "react-router-dom";
 
 export default function Header() {
+    const LOCAL_STORAGE_KEY = 'auth.user'
+    let authUser = localStorage.getItem(LOCAL_STORAGE_KEY);
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -16,15 +19,22 @@ export default function Header() {
                     </ul>
 
                     <ul className="nav navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link to="/signin" className="nav-link">Sign In</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/signup" className="nav-link">Sign Up</Link>
-                        </li>
+                        {
+                        authUser === null ? 
+                            <Fragment>
+                                 <li className="nav-item">
+                                <Link to="/signin" className="nav-link">Sign In</Link>
+                            </li> 
+                            <li className="nav-item">
+                                <Link to="/signup" className="nav-link">Sign Up</Link>
+                            </li>
+                            </Fragment>
+                        :
                         <li className="nav-item">
                             <Link to="/signout" className="nav-link">Sign Out</Link>
                         </li>
+                        }
+                        
                     </ul>
                 </div>
             </nav>
