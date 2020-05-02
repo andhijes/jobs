@@ -1,11 +1,23 @@
-import React, { Fragment } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
     Link, useHistory 
   } from "react-router-dom";
 
 export default function Header() {
     const LOCAL_STORAGE_KEY = 'auth.user'
-    let authUser = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const [udahLoginSob,setUdahLoginSob]=useState(false);
+
+    useEffect(() => {
+        let authUser = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (authUser !== null) {
+            setUdahLoginSob(true)
+        }
+      }, [udahLoginSob]);
+
+    let logout = useCallback(() => {
+        localStorage.clear();
+        window.location = "/";
+    }, []);
 
     return (
         <>
@@ -19,20 +31,19 @@ export default function Header() {
                     </ul>
 
                     <ul className="nav navbar-nav ml-auto">
-                        {
-                        authUser === null ? 
-                            <Fragment>
-                                 <li className="nav-item">
+                        {udahLoginSob ? 
+                        <li className="nav-item" onClick={logout}>
+                            <Link to="#" className="nav-link">Sign Out</Link>
+                        </li>
+                        :
+                        <>
+                            <li className="nav-item">
                                 <Link to="/signin" className="nav-link">Sign In</Link>
                             </li> 
                             <li className="nav-item">
                                 <Link to="/signup" className="nav-link">Sign Up</Link>
                             </li>
-                            </Fragment>
-                        :
-                        <li className="nav-item">
-                            <Link to="/signout" className="nav-link">Sign Out</Link>
-                        </li>
+                        </>
                         }
                         
                     </ul>
