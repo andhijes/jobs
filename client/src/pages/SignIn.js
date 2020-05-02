@@ -64,7 +64,7 @@ export default function SignIn() {
     
     return (
         <>
-            // inagt semua di react itu component js redirect bs jalan disini juga sob wkwkwkwk tinggal cek kolo true jalanin aj
+            {/* ingat semua di react itu component js redirect bs jalan disini juga sob wkwkwkwk tinggal cek kolo true jalanin aj */}
             {udahLoginSob && <Redirect to='/' />}
             <div className="container">
                 <div className="row">
