@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Input from '../components/Input'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom';
@@ -15,6 +15,13 @@ export default function SignIn() {
     //gw tambahin aj stateudah login
     const [udahLoginSob,setUdahLoginSob]=useState(false);
 
+    //buat cek ada user ato gak
+    useEffect(() => {
+        let authUser = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (authUser !== null) {
+            setUdahLoginSob(true)
+        }
+      }, []);
 
     const HandleFormSubmit = (event) => {
         callApi(form)
