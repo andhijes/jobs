@@ -12,6 +12,10 @@ export default function SignIn() {
         password: ''
     })
 
+    //gw tambahin aj stateudah login
+    const [udahLoginSob,setUdahLoginSob]=useState(false);
+
+
     const HandleFormSubmit = (event) => {
         callApi(form)
         event.preventDefault()
@@ -47,6 +51,9 @@ export default function SignIn() {
               const data = res.data
               if(data.success === true){
                   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data))
+
+                  //udah jadiin true kolo berhasil
+                  setUdahLoginSob(true);
               }
             })
             .catch(err => {
@@ -57,6 +64,8 @@ export default function SignIn() {
     
     return (
         <>
+            // inagt semua di react itu component js redirect bs jalan disini juga sob wkwkwkwk tinggal cek kolo true jalanin aj
+            {udahLoginSob && <Redirect to='/' />}
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6">
