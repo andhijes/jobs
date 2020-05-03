@@ -50,7 +50,7 @@ export default function Dashboard() {
     }
 
     const filterJob = () => {
-        let filterJob = jobList.filter(job => job.type !== "Full Time")
+        let filterJob = jobList.filter(job => job.type === "Full Time")
         setJobShow(filterJob);
     }
 
