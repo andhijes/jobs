@@ -6,7 +6,8 @@ export default function Search(props) {
         handleInputChange,
         handleSubmit,
         value,
-        handleCheck
+        handleCheck,
+        checkValue
     } = props
 
     
@@ -31,7 +32,7 @@ export default function Search(props) {
                     </div>
                 </div>
                 <div class="checkbox">
-                    <label><input onChange={handleCheck} type="checkbox" value="true" name="full_time"/>Full Time Only</label>
+                    <label><input onChange={handleCheck} type="checkbox"  name="full_time"/>Full Time Only</label>
                 </div>
             </form>
             </div>

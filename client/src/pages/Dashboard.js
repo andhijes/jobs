@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import axios from 'axios'
 import Loading from '../components/Loading'
 import Search from '../components/Search'
@@ -43,10 +43,16 @@ export default function Dashboard() {
     }
 
     const handleCheck = (event) => {
-        const {checked} = event.target
-        setFilter(checked)
+        const checked = event.target.checked;
+        setFilter(checked);
+        
+        filterJob();
     }
 
+    const filterJob = () => {
+        let filterJob = jobList.filter(job => job.type !== "Full Time")
+        setJobShow(filterJob);
+    }
 
 
     useEffect(()=>{
@@ -81,6 +87,7 @@ export default function Dashboard() {
                         })]
                     })                    
 
+                    
                     setjobStatus(res.status)
                     setLoading(false)
                 })
@@ -104,10 +111,11 @@ export default function Dashboard() {
                                 handleInputChange={handleInputChange}
                                 handleSubmit={handleSubmit}
                                 value={search}
+                                checkValue={filter}
                                 handleCheck={handleCheck}
                             />
                             {
-                                jobStatus === 200 ?
+                                jobStatus === 200 && filter === false ?
                                 jobList.map(job => {
                                     return (
                                         <CardList 
@@ -122,7 +130,22 @@ export default function Dashboard() {
                                         />
                                     )
                                 })
-                                : null
+                                : 
+                                jobShow.map(job => {
+                                    return (
+                                        <CardList 
+                                            id={job.id}
+                                            title={job.title}
+                                            sub_title={job.company}
+                                            sub_title_link={job.company_url}
+                                            desc={job.location}
+                                            img={job.logo}
+                                            status={job.date}
+                                            desc_two={job.type}
+                                        />
+                                    )
+                                })
+                                
                             }
                             {!loading && loadMore && 
                                 <button onClick={handleLoadMore} className="list-group-item list-group-item-action flex-column align-items-start">
