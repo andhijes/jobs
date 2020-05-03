@@ -11,6 +11,7 @@ export default function SignIn() {
         email: '',
         password: ''
     })
+    const [loading, setLoading] = useState(false)
 
     //gw tambahin aj stateudah login
     const [udahLoginSob,setUdahLoginSob]=useState(false);
@@ -24,6 +25,7 @@ export default function SignIn() {
       }, []);
 
     const HandleFormSubmit = (event) => {
+        setLoading(true)
         callApi(form)
         event.preventDefault()
           
@@ -57,10 +59,11 @@ export default function SignIn() {
             .then(res => {
               const data = res.data
               if(data.success === true){
+                  setLoading(false)
                   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data))
 
                   //udah jadiin true kolo berhasil
-                  window.location = "/";
+                  window.location = "/dashboard";
                   setUdahLoginSob(true);
               }
             })
@@ -95,7 +98,15 @@ export default function SignIn() {
                                 value={form.password}
                             />
 
-                            <button type="submit" className="btn btn-default btn-primary">Submit</button>
+                            <div className="d-flex w-100 justify-content-between">
+                                <button type="submit" className="btn btn-default btn-primary">Submit</button>
+                                {loading && 
+                                    <div class="spinner-border text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                    </div>
+                                }
+                            </div>
+                            
                         </form>
                     </div>
                     <div className="col-lg-6">

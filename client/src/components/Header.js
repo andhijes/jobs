@@ -5,14 +5,14 @@ import {
 
 export default function Header() {
     const LOCAL_STORAGE_KEY = 'auth.user'
-    const [udahLoginSob,setUdahLoginSob]=useState(false);
+    const [isLogin,setIsLogin]=useState(false);
 
     useEffect(() => {
         let authUser = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (authUser !== null) {
-            setUdahLoginSob(true)
+            setIsLogin(true)
         }
-      }, [udahLoginSob]);
+      }, [isLogin]);
 
     let logout = useCallback(() => {
         localStorage.clear();
@@ -21,17 +21,20 @@ export default function Header() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4 navbar-fixed-top">
                 <Link to="/" className="navbar-brand">Dhijes API</Link>
                 <div className="collapse navbar-collapse">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                        </li>
-                    </ul>
+                    {isLogin ?
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                            </li>
+                        </ul>
+                        : null
+                    }
 
                     <ul className="nav navbar-nav ml-auto">
-                        {udahLoginSob ? 
+                        {isLogin ? 
                         <li className="nav-item" onClick={logout}>
                             <Link to="#" className="nav-link">Sign Out</Link>
                         </li>

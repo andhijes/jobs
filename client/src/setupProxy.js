@@ -18,4 +18,13 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    '/positions/*.json',
+    createProxyMiddleware({
+      target: 'https://jobs.github.com',
+      secure:false,
+      changeOrigin: true,
+    })
+  );
 };

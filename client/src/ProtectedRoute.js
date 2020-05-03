@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-export const ProtectedRoute = ({ component: Component, ...rest }) => {
+const ProtectedRoute = ({ component: Component, ...rest }) => {
   const LOCAL_STORAGE_KEY = 'auth.user'
   let user = localStorage.getItem(LOCAL_STORAGE_KEY);
   user = JSON.parse(user);
@@ -27,3 +27,5 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
     />
   );
 };
+
+export default ProtectedRoute
